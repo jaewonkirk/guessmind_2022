@@ -1,0 +1,58 @@
+doctype html 
+html(language="ko")
+    head 
+        title exp_manager 
+    body 
+        header 
+            h1 Hydrogen Resarch Lab Experiment Manager V1.0 
+        main 
+            form#port-setting Port Setting
+                .port Port
+                    select(name="port")
+                        each val, index in portList
+                            option(value = `${portList[index].path}`) #{portList[index].path} : #{portList[index].friendlyName},  #{portList[index].serialNumber}
+                .baudrate Baudrate
+                    select(name="baudrate")
+                        each val in baudrateList
+                            option(value = val) #{val}
+                .data-bits Data Bits
+                    select(name="data-bits")
+                        each val in databitsList
+                            option(value = val) #{val}
+                .parity Parity
+                    select(name="parity")
+                        each val in parityList
+                            option(value = val) #{val}
+                .stop-bits Stop bits
+                    select(name="stop-bits")
+                        each val in stopbitsList
+                            option(value = val) #{val}
+                .flow-control Flow control
+                    select(name="flow-control")
+                        each val in flowControlList
+                            option(value = val) #{val}
+                .connect-status Connect
+                    button(id="connect") connect
+
+            form#com-terminal Communication terminal
+                .rx Received Message
+                    span.rx-msg 
+                .tx Transmit Message 
+                    input(name="tx-msg" type="text")
+                    button(id="tx-submit") Send
+            form#MFC-terminal MFC Terminal 
+                .controller 
+                    input(name="setpoint" type="number")
+                    button() Send
+            form#MFC-monitor
+                .setpoint
+                    span SV : 
+                    span.sv-monitor 
+                .measure 
+                    span PV : 
+                    span.pv-monitor
+                button() Read
+        footer 
+            span
+    script(src="/socket.io/socket.io.js")
+    script(src="/index.js")
